@@ -1,0 +1,41 @@
+l bademail@gmail.com badPWD
+l dev@king.com candyshots
+
+x
+x
+s
+l powell@yahoo.com powell007
+
+v categories
+v recent Games
+v free Games
+v recent Books
+v app com.king.candycrush
+v app wrongApp
+d com.king.candycrush
+x
+l powell@yahoo.com powell007
+
+r com.king.candycrush 5
+x
+
+l powell@yahoo.com powell007
+
+r com.facebook.app 4
+x
+
+l dev@fb.com facebooking
+s
+u candythrow com.king.candythrow Games 20
+v recent Games
+v free Games
+v paid Games
+x
+l ray@hotmail.com genes
+s
+u rayman com.rayrocks.rayman Games 20
+p dev@fb.com
+p ray@hotmail.com
+p
+x
+q

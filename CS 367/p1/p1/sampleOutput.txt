@@ -1,0 +1,90 @@
+Welcome to the App Store!
+Start by browsing the top free and the top paid apps today on the App Store.
+Login to download or upload your favorite apps.
+
+[anonymous@AppStore]$ Wrong username / password
+[anonymous@AppStore]$ [dev@king.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ You are already logged out!
+[anonymous@AppStore]$ You need to log in to perform this action!
+[anonymous@AppStore]$ [powell@yahoo.com@AppStore]$ Displaying list of categories...
+1. Books
+2. Business
+3. Catalogs
+4. Communication
+5. Education
+6. Entertainment
+7. Finance
+8. Food&Drink
+9. Games
+10. Health
+11. Lifestyle
+12. Medical
+13. Music
+14. Navigation
+15. News
+16. Photo&Video
+17. Productivity
+18. Reference
+19. Social
+20. Sports
+21. Travel
+22. Utilities
+23. Weather
+[powell@yahoo.com@AppStore]$ 1. App: Candy Crush	Id: com.king.candycrush	Developer: dev@king.com
+2. App: Fruit Ninja	Id: com.halfbrick.fruitninja	Developer: fruitninja@halfbrick.com
+[powell@yahoo.com@AppStore]$ 1. App: Candy Crush	Id: com.king.candycrush	Developer: dev@king.com
+[powell@yahoo.com@AppStore]$ No apps to display!
+[powell@yahoo.com@AppStore]$ App name: Candy Crush
+App id: com.king.candycrush
+Category: Games
+Developer Name: Roddy Piper
+Developer Email: dev@king.com
+Total downloads: 0
+Average Rating: 0.0
+[powell@yahoo.com@AppStore]$ No such app found with the given app id!
+[powell@yahoo.com@AppStore]$ Downloaded App Candy Crush
+[powell@yahoo.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ [powell@yahoo.com@AppStore]$ Rated app Candy Crush
+[powell@yahoo.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ [powell@yahoo.com@AppStore]$ Something went wrong. Rating command failed!
+[powell@yahoo.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ [dev@fb.com@AppStore]$ You are already a developer!
+[dev@fb.com@AppStore]$ [dev@fb.com@AppStore]$ 1. App: candythrow	Id: com.king.candythrow	Developer: dev@fb.com
+2. App: Candy Crush	Id: com.king.candycrush	Developer: dev@king.com
+3. App: Fruit Ninja	Id: com.halfbrick.fruitninja	Developer: fruitninja@halfbrick.com
+[dev@fb.com@AppStore]$ 1. App: Candy Crush	Id: com.king.candycrush	Developer: dev@king.com
+[dev@fb.com@AppStore]$ 1. App: Fruit Ninja	Id: com.halfbrick.fruitninja	Developer: fruitninja@halfbrick.com
+2. App: candythrow	Id: com.king.candythrow	Developer: dev@fb.com
+[dev@fb.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ [ray@hotmail.com@AppStore]$ You have been promoted as developer
+[ray@hotmail.com@AppStore]$ [ray@hotmail.com@AppStore]$ User name: William Penn
+User email: dev@fb.com
+User country: US
+List of downloaded apps: 
+No apps to display!
+List of uploaded apps: 
+1. App: Facebook	Id: com.facebook.app	Developer: dev@fb.com
+2. App: Messenger	Id: com.facebook.messenger	Developer: dev@fb.com
+3. App: candythrow	Id: com.king.candythrow	Developer: dev@fb.com
+[ray@hotmail.com@AppStore]$ User name: Gene Ray
+User email: ray@hotmail.com
+User country: US
+List of downloaded apps: 
+1. App: Fruit Ninja	Id: com.halfbrick.fruitninja	Developer: fruitninja@halfbrick.com
+2. App: Messenger	Id: com.facebook.messenger	Developer: dev@fb.com
+3. App: VLC Player	Id: org.videolan.vlc	Developer: videolan@gmail.com
+List of uploaded apps: 
+1. App: rayman	Id: com.rayrocks.rayman	Developer: ray@hotmail.com
+Your total earnings: $0.0
+[ray@hotmail.com@AppStore]$ User name: Gene Ray
+User email: ray@hotmail.com
+User country: US
+List of downloaded apps: 
+1. App: Fruit Ninja	Id: com.halfbrick.fruitninja	Developer: fruitninja@halfbrick.com
+2. App: Messenger	Id: com.facebook.messenger	Developer: dev@fb.com
+3. App: VLC Player	Id: org.videolan.vlc	Developer: videolan@gmail.com
+List of uploaded apps: 
+1. App: rayman	Id: com.rayrocks.rayman	Developer: ray@hotmail.com
+Your total earnings: $0.0
+[ray@hotmail.com@AppStore]$ You have been logged out.
+[anonymous@AppStore]$ Quit
