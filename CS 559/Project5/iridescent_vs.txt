@@ -1,0 +1,20 @@
+precision highp float;
+attribute vec3 position;
+attribute vec3 normal;
+uniform mat3 normalMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+varying vec3 fNormal;
+varying vec3 fPosition;
+varying float fr; //facing ratio
+
+void main()
+{
+  vec3 n = normalMatrix * normal;
+  fNormal = normalize(n);
+  vec4 pos = modelViewMatrix * vec4(position, 1.0);
+  fPosition = pos.xyz;
+  vec3 e = normalize(-fPosition);
+  fr = dot(n,e);
+  gl_Position = projectionMatrix * pos;
+}

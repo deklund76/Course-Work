@@ -1,0 +1,30 @@
+precision highp float;
+uniform float time;
+uniform vec2 resolution;
+varying vec3 fPosition;
+varying vec3 fNormal;
+varying vec3 uPos;
+
+void main()
+{
+  float ys = uPos.y*5.0 - floor(uPos.y*5.0);
+  float xs = uPos.x*5.0 - floor(uPos.x*5.0);
+
+  float xc = smoothstep(.45,.55,xs);
+  float yc = smoothstep(.45,.55,ys);
+  
+  vec3 n = normalize(fNormal);
+  float dl1 = max(0.0, dot(n, vec3(1,.3,0)));
+  float dl2 = max(0.0, dot(n, vec3(-1,1,0)));
+  
+  float light1 = (.01+.9*dl1);
+  float light2 = (.01+.2*dl2);
+  vec3 lc1 = vec3(1.0, 0.3, 0.0);
+  vec3 lc2 = vec3(0.3, 0.3, 1.0);
+  
+  float r = lc1.x * light1 + lc2.x * light2;
+  float g = lc1.y * light1 + lc2.y * light2;
+  float b = lc1.z * light1 + lc2.z * light2;
+  
+  gl_FragColor = vec4(r,g,b, 1.0);
+}

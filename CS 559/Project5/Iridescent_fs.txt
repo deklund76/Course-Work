@@ -1,0 +1,21 @@
+precision highp float;
+uniform float time;
+uniform vec2 resolution;
+varying vec3 fPosition;
+varying vec3 fNormal;
+varying float fr;
+
+void main()
+{
+  vec3 n = normalize(fNormal);
+  vec3 l = vec3(1,1,0);
+  float dl = max(0.0, dot(n, l));
+  
+  float light = (.01+.9*dl);
+  
+  float r = abs(cos(fr*5.0 + 1.0)) * light;
+  float g = abs(cos(fr*5.0 + 2.0)) * light;
+  float b = abs(cos(fr*5.0 + 3.0)) * light;
+  
+  gl_FragColor = vec4(r,g,b, 1.0);
+}
