@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by anonymous (http://jsbin.com/boqejafewe/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="[add your bin description]">
+  <meta charset="utf-8">
+  <title>Inner Cubelar System</title>
+  <!-- you need to load TWGL from somewhere -
+    -- this grabs it from the CS server, which
+    -- might take a while
+    -->The Inner Solar System as Depicted by Cubes
+  <canvas id="myCanvas" 
+	   width="500" height="500"
+	   style="border:1px solid #000;">
+  </canvas><br/>
+  Left-Right<input id="slider1" type="range" min="-100" max="100" />
+  Down-Up<input id="slider2" type="range" min="-100" max="100" />
+  Realism<input id="slider3" type="range" min="0" max="100" />
+   <input type="checkbox" id="cb"/>Still<br />
+  <img src=https://media.wired.com/photos/5cd5df1f2948ca2e63b090f0/4:3/w_2400,c_limit/01_SPoW_051119.jpg id="starfield" width="15" height="15">
+  <img src=https://www.thesun.co.uk/wp-content/uploads/2016/04/1324311.main_image.jpg?w=768 id="sun1" width="15" height="15">
+  <img src="http://www.space.com/images/i/000/008/413/original/4-mercury-volcanoes.jpg?interpolation=lanczos-none&downsize=660:*" id="mercury" width="15" height="15">
+  <img src="http://fettss.arc.nasa.gov/media/fettss/images/VenusSurface-1.tif.746x600_q85.jpg" id="venus" width="15" height="15">
+  <img src="https://i.ytimg.com/vi/oFDeNcu3mnc/maxresdefault.jpg" id="earth" width="15" height="15">
+  <img src="http://i1.wp.com/www.universetoday.com/wp-content/uploads/2008/06/mars-globe-valles-marineris-enhanced.jpg?resize=350%2C200" id="mars" width="15" height="15">
+  Holy Smokes! The planets are actually over 60 times smaller in real life than at the highest realism setting here!
+  <script src="http://graphics.cs.wisc.edu/JS/twgl-full.min.js"></script>
+</head>
+<body>
+
+<script id="jsbin-javascript">
+function setup() { "use strict";
+  var canvas = document.getElementById('myCanvas');
+  var context = canvas.getContext('2d');
+  var m4 = twgl.m4;
+                  
+  // Space <3
+  var starfield = document.getElementById("starfield");
+                  
+  // Planet images <3
+  var img1 = document.getElementById("sun1");
+  var sun1 = context.createPattern(img1,"repeat");
+  var img2 = document.getElementById("mercury");
+  var mercury = context.createPattern(img2,"repeat");
+  var img3 = document.getElementById("venus");
+  var venus = context.createPattern(img3,"repeat");
+  var img4 = document.getElementById("earth");
+  var earthPat = context.createPattern(img4,"repeat");
+  var img5 = document.getElementById("mars");
+  var marsPat = context.createPattern(img5,"repeat");
+                  
+  var polygons = [];
+  
+  var slider1 = document.getElementById('slider1');
+  slider1.value = 0;
+  var slider2 = document.getElementById('slider2');
+  slider2.value = 0;
+  var cb = document.getElementById("cb");
+  var slider3 = document.getElementById('slider3');
+  slider3.value = 0;
+                
+  function moveToTx(x,y,z,Tx) {
+    var loc = [x,y,z];
+    var locTx = m4.transformPoint(Tx,loc);
+    context.moveTo(locTx[0]+250,-locTx[1]+250);
+  }
+
+  function lineToTx(x,y,z,Tx) {
+    var loc = [x,y,z];
+    var locTx = m4.transformPoint(Tx,loc);
+    context.lineTo(locTx[0]+250,-locTx[1]+250);
+  }
+                
+  function drawAxes(Tx) {
+    // X and Y Axes for reference
+    //moveToTx(0,0,0,Tx);lineToTx(50,0,0,Tx);context.stroke();
+  
+    var z1 = [0,0,-300];
+    var z2 = [0,0,300];
+    var y1 = [0,-300,0];
+    var y2 = [0,300,0];
+    
+    z1 = m4.transformPoint(Tx,z1);
+    z2 = m4.transformPoint(Tx,z2);
+    y1 = m4.transformPoint(Tx,y1);
+    y2 = m4.transformPoint(Tx,y2);
+    
+    context.moveTo(z1[0],z1[1]);context.lineTo(z2[0],z2[1]);context.stroke();
+    context.moveTo(y1[0],y1[1]);context.lineTo(y2[0],y2[1]);context.stroke();
+ 
+    /*context.beginPath();
+    context.strokeStyle = "Purple";                     
+    context.moveTo(0,-150);context.lineTo(0,0);context.stroke();
+    context.closePath();
+    
+    context.beginPath();
+    //context.strokeStyle = "Purple";
+    context.moveTo(0,0);context.lineTo(0,150);context.stroke();
+    context.closePath();
+    
+    context.beginPath();
+    context.moveTo(0,0);context.lineTo(0,0);context.stroke();
+    context.closePath();
+    
+    context.beginPath();
+    //context.strokeStyle = "OrangeRed";
+    context.moveToTx(0,0,0,Tx);context.lineToTx(0,0,-150,Tx);context.stroke();
+    context.closePath();*/
+  }
+                  
+     function distanceCalc(v1,v2) {
+       return Math.sqrt(Math.pow((v2[0] - v1[0]), 2), Math.pow((v2[1] - v1[1]), 2), Math.pow((v2[2] - v1[2]), 2));
+     }
+                  
+     function addPolygon(v1, v2, v3, color, outline){
+        polygons.push(
+        {
+            "v1" : v1,
+            "v2" : v2,
+            "v3" : v3,
+            "color" : color || "Blue",
+            "outline" : outline,
+            //"dist" : distanceCalc([(v1[0] + v2[0] + v3[0])/3, (v1[1] + v2[1] + v3[1])/3, (v1[2] + v2[2] + v3[2])/3], eye)
+          "avg" : v1[2] + v2[2] + v3[2]
+        }
+    );
+}
+
+  var cubeVerts = [ [0,0,0], [1,0,0], [1,1,0], [0,1,0], [0,0,1], [1,0,1], [1,1,1], [0,1,1] ];
+    var cubeTris = [
+                     [2,6,7], [3,2,7], // top is   2,3,6,7
+                     [0,2,3], [0,1,2], // front is 0,1,2,3
+                     [1,5,2], [5,2,6],  // side is  1,2,5,6
+                     [4,5,6], [4,6,7],  // back is  4,5,6,7
+                     [4,3,7], [4,0,3], // side is  0,3,4,7
+                     [0,1,4], [1,4,5]
+                    ];
+
+    function drawCube(view,Tmodel,color1,color2, outline) {
+        Tmodel = Tmodel || m4.identity();
+        for (var i=0; i<cubeTris.length; i++ ) {
+
+            // Tranform vertices with respect to cube
+            var tri=cubeTris[i];
+            var p1 = m4.transformPoint(Tmodel,cubeVerts[tri[0]]);
+            var p2 = m4.transformPoint(Tmodel,cubeVerts[tri[1]]);
+            var p3 = m4.transformPoint(Tmodel,cubeVerts[tri[2]]);
+
+           // eye = m4.transformPoint(Tmodel,eye);
+          
+            // Transform vertices with respect to camera
+            p1 = m4.transformPoint(view,p1);
+            p2 = m4.transformPoint(view,p2);
+            p3 = m4.transformPoint(view,p3);
+          
+            var color = color1;
+            if(i % 2 == 1) {
+              color = color2;
+            }
+
+            addPolygon(p1,p2,p3,color,outline);
+        }
+
+    }
+                  
+   function wallTest(Tx, eye) {
+     /*context.fillStyle = "Red";
+    context.beginPath();
+  moveToTx(0,0,0,Tx);lineToTx(100,0,0,Tx);lineToTx(0,100,0,Tx);lineToTx(0,0,0,Tx);
+    context.fill();
+    context.closePath();*/
+    
+    var r1 = [0,0,0];
+    var r2 = [100,0,0];
+    var r3 = [0,100,0];
+     
+    //r1 = m4.transformPoint(Tx,r1);
+    //r2 = m4.transformPoint(Tx,r2);
+    //r3 = m4.transformPoint(Tx,r3);
+
+     
+     addPolygon(r1,r2,r3, eye, "Red");
+     
+     /*context.fillStyle = "Blue";
+     context.beginPath();
+  moveToTx(0,0,0,Tx);lineToTx(0,0,100,Tx);lineToTx(0,100,0,Tx);lineToTx(0,0,0,Tx);
+    context.fill();
+    context.closePath();*/
+     
+     var b = [0,0,100];
+    
+     addPolygon(r1,b,r3, eye, "Blue");
+     
+     var c = [-100,0,0];
+     var m = [0,0,-100];
+     
+     addPolygon(r1,c,r3,eye,"cyan");
+     addPolygon(r1,m,r3,eye,"pink");
+     
+  }
+                  
+  function paint(Tx) {
+    polygons.sort(function (a, b) {
+            if (a.avg > b.avg) {
+                return -1;
+            } else {
+                return 1;
+            }
+  });
+    
+    /*if(cb.checked) {
+    alert(polygons[0].color + ": " + polygons[0].dist + " " + polygons[1].color + ": " + polygons[1].dist);
+    } */
+   
+    polygons.forEach(function (polygon) {
+        context.beginPath();
+        context.fillStyle = polygon.color;
+        context.strokeStyle = polygon.outline || "black";
+        context.moveTo(polygon.v1[0], polygon.v1[1]);
+        context.lineTo(polygon.v2[0], polygon.v2[1]);
+        context.lineTo(polygon.v3[0], polygon.v3[1]);
+        context.closePath();
+        context.fill();
+        if (polygon.outline) {
+            context.stroke();
+        }
+    });
+    
+  }
+
+  function draw(now) {
+    // hack to clear the canvas fast
+    canvas.width = canvas.width;
+    context.drawImage(starfield,0,0,500,500);
+    
+    var angle1 = slider1.value*0.01*Math.PI;
+    var angle2 = slider2.value*0.01*Math.PI;
+    var cameraY = slider2.value*0.01*Math.PI;
+  
+    //var Tmodel = m4.identity();
+    //var Tmodel=m4.axisRotation(axis,angle2);
+    
+    var viewport = m4.scaling([500/2,-500/2,1]);
+		m4.setTranslation(viewport,[500/2,500/2,0],viewport);
+
+		// get the projection
+		var fov = Math.PI / 2;
+		var projM = m4.perspective(fov, 1, 0.1, 100);
+    
+    var eye=[500*Math.cos(angle1),500*Math.sin(cameraY/2),500*Math.sin(angle1)];
+    var target=[0,0,0];
+    var up=[0,1,0];
+    var Tcamera=m4.inverse(m4.lookAt(eye,target,up)); 
+		
+		// the whole transform
+		var view1 = m4.multiply(Tcamera,projM);
+		var view = m4.multiply(view1,viewport);
+  
+    
+    //var Tmodelview=m4.multiply(Tmodel,Tcamera);
+
+    //drawCube(Tmodelview);
+    //drawAxes(view);
+   
+    //wallTest(Tcamera, eye);
+    
+    now *= 0.001;
+    
+    if(cb.checked) {
+      now = 0;
+    }
+    
+    var animationSpeed = 2.5
+    
+    var animationTime = now / animationSpeed * Math.PI;
+    
+    var Tsun = m4.scaling([140,140,140]);
+    var Tmercury = m4.copy(Tsun,Tmercury);
+    var Tvenus = m4.copy(Tsun,Tvenus);
+    var Tearth = m4.copy(Tsun,Tearth);
+    var Tmars = m4.copy(Tsun,Tmars);
+    Tsun = m4.rotateX(Tsun,animationTime);
+    Tsun = m4.rotateY(Tsun,animationTime);
+    Tsun = m4.translate(Tsun,[-0.5,-0.5,-0.5]);
+    //m4.translate(Tmodel,[])
+    
+    var realer = slider3.value * 0.01;
+    var merc = realer * 0.14;
+    var ven = realer * 0.183;
+    var earth = realer * 0.183;
+    var mars = realer * 0.156;
+    
+    drawCube(view,Tsun,sun1,sun1);
+    
+    Tmercury = m4.rotateX(Tmercury,animationTime);
+    Tmercury = m4.translate(Tmercury,[0,0,0.8]);
+    Tmercury = m4.scale(Tmercury, [0.15 - merc,0.15 - merc,0.15 - merc], Tmercury);
+    drawCube(view,Tmercury,mercury,mercury)
+    
+    Tvenus = m4.rotateX(Tvenus,animationTime/2.6);
+    Tvenus = m4.translate(Tvenus,[0,0,1.6]);
+    Tvenus = m4.scale(Tvenus, [0.2 - ven,0.2 - ven,0.2 - ven],Tvenus);
+    drawCube(view,Tvenus,venus,venus);
+    
+    Tearth = m4.rotateX(Tearth,animationTime/4.1);
+    Tearth = m4.translate(Tearth,[0,0,2.4]);
+    Tearth = m4.scale(Tearth, [0.21 - earth,0.21 - earth,0.21 - earth], Tearth);
+    drawCube(view,Tearth,earthPat,earthPat);
+    
+    var Tmoon = m4.copy(Tearth,Tmoon);
+    
+    Tmoon = m4.rotateX(Tmoon,animationTime);
+    Tmoon = m4.translate(Tmoon,[0.5,1,1]);
+    Tmoon = m4.scale(Tmoon, [0.21,0.21,0.21], Tmoon);
+    //Tmoon = m4.translate(Tmoon,[14,14,14]);
+    drawCube(view,Tmoon,"white","White");
+    
+    Tmars = m4.rotateX(Tmars,animationTime/7.8);
+    Tmars = m4.translate(Tmars,[0,0,3.2]);
+    Tmars = m4.scale(Tmars, [0.17 - mars,0.17 - mars,0.17 - mars], Tmars);
+    drawCube(view,Tmars, marsPat, marsPat);
+    
+    //Tmodel = m4.translation(eye);
+    //m4.scale(Tmodel, [40,40,40],Tmodel);
+    //Tmodel = m4.translate(Tmodel,[-10,-10,-10]);
+    
+    //wallTest(Tcamera,eye);
+    
+    paint(view);
+    
+    // Clear polygons
+    polygons = [];
+    
+    window.requestAnimationFrame(draw);
+  }
+
+  slider1.addEventListener("input",draw);
+  slider2.addEventListener("input",draw);
+  slider3.addEventListener("input",draw);
+  draw();
+
+}
+window.onload = setup;
+
+</script>
+</body>
+</html>
