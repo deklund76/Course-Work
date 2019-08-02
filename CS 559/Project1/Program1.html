@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by anonymous (http://jsbin.com/rupaqebufo/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<body>
+	<canvas id="myCanvas" width="750" height="400"></canvas>
+</body>
+<script> "use strict"
+  
+   window.onload = function init() {
+      window.requestAnimationFrame(draw);
+    }
+    //window.onclick = 
+      function draw() {
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+        
+        context.clearRect(0,0,750,500);
+		context.beginPath();
+        context.moveTo(0,0);
+		context.lineTo(0,400);
+        context.lineTo(750,400);
+        context.lineTo(750,0);
+        context.lineTo(0,0);
+        context.stroke();
+            
+      var date = new Date();
+      
+      context.font = "bold 24px arial";
+      context.fillText(date, 30, 75);
+        
+        //if(date.getSeconds % 2 == 0) {
+        
+            context.moveTo(200, 200);
+            context.lineTo(200, 300);
+            context.moveTo(215, 300);
+            context.lineTo(185, 300);
+            context.moveTo(185, 210);
+            context.lineTo(215, 210);
+            context.moveTo(230, 170);
+            context.arc(200, 170, 30, 0, Math.PI*2);
+            context.moveTo(193, 162);
+            context.arc(188,162,5,0,Math.PI*2);
+            context.moveTo(217, 162);
+            context.arc(212,162,5,0,Math.PI*2);
+        
+            if(date.getSeconds() % 2 == 0) {
+              context.moveTo(208, 180);
+              context.arc(200, 180, 8, 0, Math.PI*2);
+              context.moveTo(185, 210);
+              context.lineTo(140, 145);
+              context.moveTo(215, 210);
+              context.lineTo(260, 145);
+              context.moveTo(185, 300);
+              context.lineTo(150, 370);
+              context.moveTo(215, 300);
+              context.lineTo(250, 370);
+            }
+        
+            else {
+              context.moveTo(190, 180);
+              context.lineTo(210, 180);
+              context.moveTo(185, 210);
+              context.lineTo(160, 280);
+              context.moveTo(215, 210);
+              context.lineTo(240, 280);
+              context.moveTo(185, 300);
+              context.lineTo(185, 380);
+              context.moveTo(215, 300);
+              context.lineTo(215, 380);
+            }
+        
+        context.stroke();
+        
+        var sun = new Image();
+        var moon = new Image();
+        
+        sun.src = 'http://pix.iemoji.com/images/emoji/apple/ios-9/256/sun-with-face.png';
+        moon.src = 'http://www.leisurelyscientist.com/wp-content/plugins/moon-phases/images/full_moon.png';
+        
+        if(date.getHours() >= 7 && date.getHours() <= 19) {
+          context.drawImage(sun,300,200);
+        }
+        else {
+          context.drawImage(moon,400,100);
+        }
+        
+        
+      window.requestAnimationFrame(draw);
+	}; 
+</script>
+<head>
+  <meta name="description" content="Program 1">
+  <meta charset="utf-8">
+  <title>Program 1</title>
+</head>
+</html>

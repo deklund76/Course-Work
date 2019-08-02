@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by anonymous (http://jsbin.com/dewucafedo/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WW1 Tank</title>
+</head>
+
+<body>
+<H1>WW1 Tank</H1>
+<canvas id = "myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+
+<br />
+Cannon: <input id="slider1" type="range" min="-45" max="45" step="1"/>
+<br />  
+<br />
+Turret1: <input id="slider2" type="range" min="-45" max="45" step="1"/>
+<br />  
+<br />
+Turret2: <input id="slider3" type="range" min="-45" max="45" step="1"/>
+<br />  
+<br />
+Turret3: <input id="slider4" type="range" min="-45" max="45" step="1"/>
+<br />  
+Turret4: <input id="slider5" type="range" min="-45" max="45" step="1"/>
+<br />
+Turret5: <input id="slider6" type="range" min="-45" max="45" step="1"/>
+<br />
+Turret6: <input id="slider7" type="range" min="-45" max="45" step="1"/>
+<br />
+  
+<script>
+    "use strict";
+  
+      var tankCanvas = document.getElementById('myCanvas');
+      var context = tankCanvas.getContext('2d');
+      var slider1 = document.getElementById('slider1');
+      slider1.value = 0;
+  
+      //Coordinates of center of Tank
+      var x = 217;
+      var y = 200;
+  
+      window.addEventListener("keydown", move);
+  
+    window.onload = function ww1Tank() {
+      context.clearRect(0,0,400,400);
+      context.save();
+      drawCannon();
+      drawTurret1();
+      drawTurret2();
+      drawTurret3();
+      drawTurret4();
+      drawTurret5();
+      drawTurret6();
+      drawTank();
+      context.restore();
+      window.requestAnimationFrame(ww1Tank);
+    }
+  
+    function drawTank() {
+      
+      //Chassis
+      context.beginPath();
+      context.rect(180, 180, 74, 40);
+      context.fillStyle = "gray";
+      context.moveTo(180,180);
+      context.lineTo(172,200);
+      context.lineTo(180,220);
+      context.moveTo(254,180);
+      context.lineTo(262,200);
+      context.lineTo(254,220);
+      context.closePath();
+      context.stroke();
+      context.fill();
+      
+      //Top
+      context.beginPath();
+      context.arc(217,200,3,0,2*Math.PI,true);
+      context.moveTo(212,190);
+      context.fillStyle = "black";
+      context.fill();
+      context.closePath();
+      context.beginPath();
+      context.strokeRect(209,187,16,26);
+      context.stroke();
+      
+      
+    }
+  
+    function drawCannon() {
+      context.save();
+      context.translate(258,200);
+      context.rotate((Math.PI*slider1.value)/180);
+      context.translate(-258,-200);
+      context.fillRect(258, 197, 12,6)
+  
+      context.restore();
+    }
+  
+    function drawTurret1() {
+      context.save();
+      context.translate(x + 15,y - 20);
+      context.rotate((Math.PI*slider2.value)/180);
+      context.translate(-15 - x,20 - y);
+      context.fillRect(x + 13,y - 28,4,8);
+      context.restore();
+    }
+  
+  function drawTurret2() {
+      context.save();
+      context.translate(x - 15,y - 20);
+      context.rotate((Math.PI*slider3.value)/180);
+      context.translate(15 - x,20 - y);
+      context.fillRect(x - 17,y - 28,4,8);
+      context.restore();
+    }
+  
+  function drawTurret3() {
+      context.save();
+      context.translate(x - 40,y - 10);
+      context.rotate(-65*Math.PI/180);
+      context.rotate((Math.PI*slider4.value)/180);
+      context.translate(-15 - x,20 - y);
+      context.fillRect(x + 13,y - 28,4,8);
+      context.restore();
+    }
+  
+  function drawTurret4() {
+      context.save();
+      context.translate(x - 40,y + 10);
+      context.rotate(-130*Math.PI/180);
+      context.rotate((Math.PI*slider5.value)/180);
+      context.translate(-15 - x,20 - y);
+      context.fillRect(x + 13,y - 28,4,8);
+      context.restore();
+    }
+  
+  function drawTurret5() {
+     context.save();
+      context.translate(x - 15,y + 20);
+      context.rotate((Math.PI*slider6.value)/180);
+      context.translate(15 - x,-20 - y);
+      context.fillRect(x - 17,y + 20,4,8);
+      context.restore();
+    }
+  
+  function drawTurret6() {
+      context.save();
+      context.translate(x + 15,y + 20);
+      context.rotate((Math.PI*slider7.value)/180);
+      context.translate(-15 - x,-20 - y);
+      context.fillRect(x + 13,y + 20,4,8);
+      context.restore();
+    }
+  
+    
+    
+    function move(direction) {
+      //alert(direction.keyCode);
+      
+      if(direction.keyCode == 87) {
+        context.translate(1,0);
+      }
+      
+      if(direction.keyCode == 83) {
+        context.translate(-1,0);
+      }
+      
+       if(direction.keyCode == 65) {
+        context.translate(x,y);
+        context.rotate(-Math.PI/180);
+        context.translate(-x,-y);
+      }
+      
+       if(direction.keyCode == 68) {
+        context.translate(x,y);
+        context.rotate(Math.PI/180);
+        context.translate(-x,-y);
+      }
+      
+    }
+  
+</script>
+
+</body>
+</html>
+

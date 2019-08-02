@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by anonymous (http://jsbin.com/terapawota/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="[add your bin description]">
+  <meta charset="utf-8">
+  <title>TWGL 101</title>  
+  <canvas id="myCanvas" 
+	   width="500" height="500"
+	   style="border:1px solid #000;">
+  </canvas><br/>
+  <input id="slider1" type="range" min="-100" max="100" />
+  <input id="slider2" type="range" min="-100" max="100" />
+  <input id="slider3" type="range" min="0.1" max="5" />
+  <input id="slider4" type="range" min="-100" max="100" />
+  <script src="http://graphics.cs.wisc.edu/JS/twgl-full.min.js"></script>
+</head>
+<body>
+
+<script id="jsbin-javascript">
+function setup() { "use strict";
+  var canvas = document.getElementById('myCanvas');
+  var context = canvas.getContext('2d');
+  var m4 = twgl.m4;
+  var then = 0;
+  
+  var slider1 = document.getElementById('slider1');
+  slider1.value = 0;
+  var slider2 = document.getElementById('slider2');
+  slider2.value = 0;
+  var slider3 = document.getElementById('slider3');
+  slider3.value = 1;
+  var slider4 = document.getElementById('slider4');
+  slider4.value = 1;
+                
+  function moveToTx(x,y,z,Tx) {
+    var loc = [x,y,z];
+    var locTx = m4.transformPoint(Tx,loc);
+    context.moveTo(locTx[0]+250,-locTx[1]+250);
+  }
+
+  function lineToTx(x,y,z,Tx) {
+    var loc = [x,y,z];
+    var locTx = m4.transformPoint(Tx,loc);
+    context.lineTo(locTx[0]+250,-locTx[1]+250);
+  }
+                
+  function drawAxes(Tx) {
+  moveToTx(0,0,0,Tx);lineToTx(50,0,0,Tx);context.stroke();
+    moveToTx(0,0,0,Tx);lineToTx(0,150,0,Tx);context.stroke();
+    moveToTx(0,0,0,Tx);lineToTx(0,0,250,Tx);context.stroke();
+  }
+
+  function drawCube(Tx) {
+
+    moveToTx(0,0,0,Tx);lineToTx(100,0,0,Tx);
+    lineToTx(100,100,0,Tx);lineToTx(0,100,0,Tx);lineToTx(0,0,0,Tx);//context.stroke();
+    context.fill();
+    
+    lineToTx(0,0,100,Tx);lineToTx(0,100,100,Tx);lineToTx(0,100,0,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(0,100,100,Tx);lineToTx(0,0,100,Tx);lineToTx(100,0,100,Tx);lineToTx(100,100,100,Tx);lineToTx(0,100,100,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(100,0,100,Tx);lineToTx(100,0,0,Tx);lineToTx(100,100,0,Tx);lineToTx(100,100,100,Tx);lineToTx(100,0,100,Tx);//context.stroke();
+    context.fill();
+    
+lineToTx(0,0,100,Tx);lineToTx(0,0,0,Tx);lineToTx(100,0,0,Tx);lineToTx(100,0,100,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(0,100,0,Tx);lineToTx(100,100,0,Tx);lineToTx(100,100,100,Tx);lineToTx(0,100,100,Tx);lineToTx(0,100,0,Tx);//context.stroke();
+    context.fill();
+
+  }
+                  
+  function drawHead(Tx) {
+    moveToTx(0,0,0,Tx);lineToTx(100,0,0,Tx);
+    lineToTx(100,100,0,Tx);lineToTx(0,100,0,Tx);lineToTx(0,0,0,Tx);//context.stroke();
+    context.fill();
+    
+    lineToTx(0,0,100,Tx);lineToTx(0,100,100,Tx);lineToTx(0,100,0,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(0,100,100,Tx);lineToTx(0,0,100,Tx);lineToTx(100,0,100,Tx);lineToTx(100,100,100,Tx);lineToTx(0,100,100,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(100,0,100,Tx);lineToTx(100,0,0,Tx);lineToTx(100,100,0,Tx);lineToTx(100,100,100,Tx);lineToTx(100,0,100,Tx);//context.stroke();
+    context.fill();
+    
+lineToTx(0,0,100,Tx);lineToTx(0,0,0,Tx);lineToTx(100,0,0,Tx);lineToTx(100,0,100,Tx);//context.stroke();
+    context.fill();
+    
+moveToTx(0,100,0,Tx);lineToTx(100,100,0,Tx);lineToTx(100,100,100,Tx);lineToTx(0,100,100,Tx);lineToTx(0,100,0,Tx);//context.stroke();
+    context.fill();
+    
+    moveToTx(100,80,80,Tx);lineToTx(100,80,60,Tx);lineToTx(100,60,60,Tx);lineToTx(100,60,80,Tx);lineToTx(100,80,80,Tx);
+    
+    moveToTx(100,80,20,Tx);lineToTx(100,80,40,Tx);lineToTx(100,60,40,Tx);lineToTx(100,60,20,Tx);lineToTx(100,80,20,Tx);
+    
+  moveToTx(100,55,50,Tx);lineToTx(100,40,40,Tx);lineToTx(100,40,60,Tx);lineToTx(100,55,50,Tx);
+    
+  moveToTx(100,30,90,Tx);lineToTx(100,10,68,Tx);lineToTx(100,30,56,Tx);lineToTx(100,10,42,Tx);lineToTx(100,30,30,Tx);lineToTx(100,10,25,Tx);lineToTx(100,35,10,Tx);
+    
+  }
+                  
+  function drawCopter(Tx) {
+    moveToTx(0,100,0,Tx);lineToTx(0,150,0,Tx);lineToTx(0,150,-70,Tx);moveToTx(0,150,0,Tx);lineToTx(70,150,0,Tx);moveToTx(0,150,0,Tx);lineToTx(0,150,70,Tx);moveToTx(0,150,0,Tx);lineToTx(-70,150,0,Tx);
+  }
+                  
+
+  function draw(now) {
+    canvas.width = canvas.width;
+    
+    now *= 0.001;
+    
+    var animationSpeed = 2.5 / slider3.value;
+    
+    var animationTime = now / animationSpeed * Math.PI;
+    
+    var angle1 = slider1.value*0.01*Math.PI;
+    var angle2 = slider4.value*0.01*Math.PI;
+    var cameraY = slider2.value*0.01*Math.PI;
+    var axis = [1,1,1];
+    var scale = [0.75,0.75,0.75];
+    var translate = [12.5,12.5,12.5];
+    
+    translate[1] += 87.5 * Math.abs(Math.sin(animationTime))
+  
+    var Tmodel=m4.axisRotation(axis,angle2);
+
+    var eye=[500*Math.cos(angle1),500*Math.sin(cameraY),500*Math.sin(angle1)];
+    var target=[0,0,0];
+    var up=[0,1,0];
+    var Tcamera=m4.inverse(m4.lookAt(eye,target,up));   
+    
+    var Tmodelview=m4.multiply(Tmodel,Tcamera);
+    
+    context.fillStyle = "#ADD8E6";
+    
+    var Tmpmodel = Tmodel;
+    m4.scale(Tmodel,scale, Tmpmodel);
+    m4.translate(Tmpmodel,translate,Tmpmodel);
+    var Tmpmodelview=m4.multiply(Tmpmodel,Tcamera);
+    drawCube(Tmpmodelview);
+    
+    m4.translate(Tmpmodel,translate,Tmpmodel);
+    m4.scale(Tmpmodel,scale, Tmpmodel);
+    m4.multiply(Tmpmodel,Tcamera,Tmpmodelview);
+    drawCube(Tmpmodelview);
+
+    m4.translate(Tmpmodel,translate,Tmpmodel);
+    m4.scale(Tmpmodel,scale, Tmpmodel);
+    m4.multiply(Tmpmodel,Tcamera,Tmpmodelview);
+    drawCube(Tmpmodelview);
+    
+    m4.translate(Tmpmodel,translate,Tmpmodel);
+    m4.scale(Tmpmodel,scale, Tmpmodel);
+    m4.multiply(Tmpmodel,Tcamera,Tmpmodelview);
+    drawHead(Tmpmodelview);
+    
+    var centerCopter = [50,0,50];
+    
+    m4.translate(Tmpmodelview, centerCopter, Tmpmodelview);
+    m4.rotateY(Tmpmodelview, 2 * animationTime,Tmpmodelview);
+    
+    scale[0] = Math.abs(Math.sin(animationTime))
+    scale[1] = Math.abs(Math.sin(animationTime))
+    scale[2] = Math.abs(Math.sin(animationTime))
+    
+    m4.scale(Tmpmodelview, scale, Tmpmodelview);
+    drawCopter(Tmpmodelview);
+    
+    
+    
+    context.fillStyle = "#ADD8E6";
+    
+    drawAxes(Tcamera);
+    
+    window.requestAnimationFrame(draw);
+  }
+
+  slider1.addEventListener("input",draw);
+  slider2.addEventListener("input",draw);
+  slider3.addEventListener("input",draw);
+  slider4.addEventListener("input",draw);
+  draw();
+
+}
+window.onload = setup;
+
+</script>
+</body>
+</html>
