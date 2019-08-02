@@ -1,0 +1,33 @@
+Name/cs login/section:
+Partner's Name/cs login/section:
+
+
+Q1
+Write the commands you used for performing steps 1, 6 and 11:
+ 1) gcc -m32 -Wall -std=gnu99 -o prog1.i -E prog1.c
+ 6) gcc -m32 -Wall -std=gnu99 -o calc.o -c calc.s
+11) gcc -m32 -Wall -std=gnu99 -o prog2 prog2.o calc.o
+
+
+Q2
+Necessary steps (among 1~11) to ensure prog2's correctness after changing
+calc.c: (Numbers only, not the commands.)
+
+	4, 5, 6, 11
+
+Q3
+Necessary steps (among 1~11) after changing calc.h: (Numbers only.)
+
+	1-11
+
+Q4
+Copy the line you added to prog2.c here:
+
+	extern int num_err;
+
+Q5
+Yes/No: 
+If yes, copy the lines added here:
+
+If no, explain here:
+

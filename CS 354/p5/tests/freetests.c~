@@ -1,0 +1,19 @@
+/* Test Mem_Free for freeing properly and returning -1 for pointers equal to NULL or an unallocated memory address */
+#include <assert.h>
+#include <stdlib.h>
+#include "mem.h"
+
+int main() {
+   assert(Mem_Init(4096) == 0);
+   void* ptr;
+
+   ptr = Mem_Alloc(420);
+   assert(ptr != NULL);
+   assert(Mem_Free(ptr) == 0);
+   assert(Mem_Free(ptr) == -1);
+   ptr = NULL;
+   assert(Mem_Free(ptr) == -1);
+
+
+   exit(0);
+}
